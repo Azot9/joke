@@ -1,0 +1,95 @@
+@font-face {
+    font-family: Roboto-Regular;
+    font-style: normal;
+    font-weight: 300;
+    src: url("../static/fonts/Roboto-Regular.ttf") format("ttf"),
+        url("../static/fonts/Roboto-Regular.woff") format("woff");
+    font-display: swap;
+}
+@font-face {
+    font-family: Roboto-Bold;
+    font-style: normal;
+    src: url("../static/fonts/Roboto-Bold.ttf") format("ttf"), url("../static/fonts/Roboto-Bold.woff") format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: Roboto-Medium;
+    font-style: normal;
+    font-weight: 300;
+    src: url("../static/fonts/Roboto-Medium.ttf") format("ttf"),
+        url("../static/fonts/Roboto-Medium.woff") format("woff");
+    font-display: swap;
+}
+html {
+    font-family: Roboto-Medium;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #333333;
+}
+h1,
+h2 {
+    font-family: Roboto-Bold;
+}
+h3 {
+    // font-family: Roboto-Medium;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 44px;
+    color: #333333;
+}
+
+p {
+    font-family: Roboto-Regular;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 44px;
+}
+h2 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 44px;
+}
+.p_one {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+button {
+    border: none;
+    outline: none;
+}
+
+.joke_category {
+    font-family: Roboto-Medium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 6px;
+    &--in_joke {
+        background: #ffffff;
+        color: #333333;
+    }
+    &--in_list {
+        color: #ababab;
+        border: 2px solid #f8f8f8;
+    }
+    &--choosed {
+        color: #333333;
+        background: #f8f8f8;
+    }
+}
