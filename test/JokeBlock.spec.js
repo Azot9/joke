@@ -3,6 +3,7 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import JokeBlock from '@/components/JokeBlock.vue'
 import Vuex from 'vuex'
 import store from "@/store";
+import timeSince from "~/plugins/timeSince"; 
 
 const localVue = createLocalVue()
 
@@ -32,7 +33,7 @@ describe('JokeBlock exist  elements', () => {
     expect(wrapper.text()).toContain(joke.value)
   })
   test('Existing joke date', () => {
-    expect(wrapper.text()).toContain(`Last update: ${joke.created_at}`)
+    expect(wrapper.text()).toContain(`Last update: ${timeSince(new Date(joke.created_at))} ago`)
   })
   test('Existing joke like', () => {
     expect(wrapper.html()).toContain(`class="joke_container in_favourite_block"`)

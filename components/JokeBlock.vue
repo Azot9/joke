@@ -28,7 +28,7 @@
         </p>
         <p class="joke_description">{{joke.value}}</p>
         <footer class="joke_footer">
-          <p class="little_text--gray">Last update: {{joke.updated_at}}</p>
+          <p class="little_text--gray">Last update: {{updateData}} ago</p>
           <p
             class="joke_category joke_category--in_joke"
             v-for="category in joke.categories"
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import timeSince from "~/plugins/timeSince";
+
 export default {
   name: "JokeBlock",
   props: ["is_favourite", "joke", "in_favourite_block"],
@@ -54,6 +56,16 @@ export default {
   },
   created() {
     this.is_liked = this.in_favourite_block || this.is_favourite;
+  },
+  computed: {
+    updateData() {
+      // let current_time = new Date();
+      // let updated_time = new Date(this.joke.updated_at);
+      // if() {
+
+      // }
+      return timeSince(new Date(this.joke.updated_at));
+    }
   },
   methods: {
     toggleLike() {
