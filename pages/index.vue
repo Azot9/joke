@@ -94,6 +94,7 @@
 import JokeBlock from "~/components/JokeBlock";
 import { mapState } from "vuex";
 import types from "~/assets/types";
+import Storage from "~/plugins/storage";
 
 export default {
   components: {
@@ -114,15 +115,8 @@ export default {
     this.$store.dispatch("getCategories");
     /* istanbul ignore next */
     if (process.client) {
-      if (
-        localStorage.getItem("favourites") &&
-        localStorage.getItem("favourites") !== "undefined"
-      ) {
-        this.$store.commit(
-          "setFavourites",
-          JSON.parse(localStorage.getItem("favourites"))
-        );
-      }
+      let storage = new Storage();
+      this.$store.commit("setFavourites", storage.getFavourites());
     }
   },
   methods: {

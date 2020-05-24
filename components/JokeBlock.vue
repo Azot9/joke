@@ -42,6 +42,7 @@
 
 <script>
 import timeSince from "~/plugins/timeSince";
+import Storage from "~/plugins/storage";
 
 export default {
   name: "JokeBlock",
@@ -59,11 +60,6 @@ export default {
   },
   computed: {
     updateData() {
-      // let current_time = new Date();
-      // let updated_time = new Date(this.joke.updated_at);
-      // if() {
-
-      // }
       return timeSince(new Date(this.joke.updated_at));
     }
   },
@@ -74,10 +70,8 @@ export default {
       this.saveFavourite();
     },
     saveFavourite() {
-      localStorage.setItem(
-        "favourites",
-        JSON.stringify(this.$store.state.favourites)
-      );
+      let storage = new Storage();
+      storage.setFavourites(this.$store.state.favourites);
     }
   }
 };

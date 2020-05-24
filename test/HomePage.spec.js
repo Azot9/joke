@@ -3,7 +3,7 @@ import { mount, shallowMount, createLocalVue } from '@vue/test-utils'
 import HomePage from '@/pages/index.vue'
 import Vuex from 'vuex'
 import store from "@/store";
-import { state, getters, mutations, actions } from "@/store";
+import { state, getters, mutations } from "@/store";
 
 
 const localVue = createLocalVue()
@@ -85,12 +85,3 @@ describe('Check actions', () => {
         expect(actions.getSearchJoke).toHaveBeenCalled()
     })
 })
-
-
-// describe('JokeBlock check jokes existing', () => {
-//     const wrapper = shallowMount(HomePage, { store, localVue })
-
-//     test('Existing  getting category types', async () => {
-
-//     })
-// })
