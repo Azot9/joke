@@ -93,3 +93,12 @@ button {
         background: #f8f8f8;
     }
 }
+
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .4s ease;
+}

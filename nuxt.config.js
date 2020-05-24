@@ -48,15 +48,19 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: "https://api.chucknorris.io/jokes"
   },
   /*
   ** Build configuration
   */
+  server: {
+    port: 3001
+  },
   build: {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }

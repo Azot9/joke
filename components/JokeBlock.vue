@@ -1,5 +1,5 @@
 <template>
-  <div class="joke_container" :class="{is_favourite}">
+  <div class="joke_container" :class="{in_favourite_block}">
     <div class="one_joke--heart_wrapper">
       <svg
         class="one_joke--heart"
@@ -18,20 +18,22 @@
       </svg>
     </div>
     <div class="one_joke--content_wrapper">
-      <img class="joke_logo" v-if="is_favourite" src="~/static/images/message_dark.svg" alt />
+      <img class="joke_logo" v-if="in_favourite_block" src="~/static/images/message_dark.svg" alt />
       <img class="joke_logo" v-else src="~/static/images/message_light.svg" alt />
       <div class="one_joke--text_block">
         <p class="id_wrapper little_text--gray">
           <span class="id_wrapper--id--gray">ID</span>
-          <span class="id_wrapper--id--blue">asdqweqdfasfqwd</span>
+          <span class="id_wrapper--id--blue">{{joke.id}}</span>
           <img src="~/static/images/link.svg" alt />
         </p>
-        <p
-          class="joke_description"
-        >No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</p>
+        <p class="joke_description">{{joke.value}}</p>
         <footer class="joke_footer">
-          <p class="little_text--gray">Last update: 1923 hours ago</p>
-          <p v-if="!is_favourite" class="joke_category joke_category--in_joke">celebrity</p>
+          <p class="little_text--gray">Last update: {{joke.updated_at}}</p>
+          <p
+            class="joke_category joke_category--in_joke"
+            v-for="category in joke.categories"
+            :key="category"
+          >{{category}}</p>
         </footer>
       </div>
     </div>
@@ -41,13 +43,29 @@
 <script>
 export default {
   name: "JokeBlock",
-  props: ["is_favourite"],
+  props: ["is_favourite", "joke", "in_favourite_block"],
   data: () => ({
     is_liked: false
   }),
+  watch: {
+    is_favourite() {
+      this.is_liked = this.is_favourite;
+    }
+  },
+  created() {
+    this.is_liked = this.in_favourite_block || this.is_favourite;
+  },
   methods: {
     toggleLike() {
       this.is_liked = !this.is_liked;
+      this.$store.commit("updateFavourite", this.joke);
+      this.saveFavourite();
+    },
+    saveFavourite() {
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify(this.$store.state.favourites)
+      );
     }
   }
 };
@@ -57,18 +75,21 @@ export default {
 .joke_container {
   padding: 40px;
   width: 100%;
-  max-width: 680px;
   background: #f8f8f8;
   border-radius: 20px;
   margin-bottom: 20px;
+  max-width: 680px;
 }
-.is_favourite {
+.in_favourite_block {
   padding: 20px;
   width: 100%;
   background: #ffffff;
   border: 1px solid #f8f8f8;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  .joke_category {
+    background: #f8f8f8;
+  }
 }
 .one_joke--heart_wrapper {
   width: 100%;
@@ -90,8 +111,10 @@ path {
   display: flex;
   align-items: flex-start;
 }
+.one_joke--text_block {
+  width: 100%;
+}
 .little_text--gray {
-  margin-bottom: 5px;
   font-family: Roboto-Medium;
   font-style: normal;
   font-weight: 500;
@@ -100,6 +123,7 @@ path {
   color: #ababab;
 }
 .id_wrapper {
+  margin-bottom: 5px;
   &--id--blue {
     color: #8ea7ff;
     text-decoration: underline;
@@ -107,10 +131,16 @@ path {
 }
 .joke_description {
   margin-bottom: 23px;
+  word-break: break-word;
 }
 .joke_footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+@media (max-width: 1024px) {
+  .joke_container {
+    max-width: 100%;
+  }
 }
 </style>
